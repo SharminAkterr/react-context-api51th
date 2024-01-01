@@ -8,21 +8,33 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
 
     const signUp = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
 
     const login = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
+    }
+
+
+    const logOut = () => {
+        setLoading(true);
+        return signOut(auth);
     }
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log("On state change Auth current value of the current users", currentUser);
             setUser(currentUser);
+            // user er value set kore deyar por loading off hye jabe
+            setLoading(false);
+
         });
 
         // jate always spy na kore. connection ba onno page e gele jate disconnect hoy.
@@ -32,12 +44,11 @@ const AuthProvider = ({ children }) => {
         }
     }, [])
 
-    const logOut = () => {
-        return signOut(auth);
-    }
+
 
     const authIfo = {
         user,
+        loading,
         signUp,
         login,
         logOut

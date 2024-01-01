@@ -6,6 +6,7 @@ import Register from "../pages/Register/Register";
 import Order from "../pages/Order/Order";
 import DashBoard from "../pages/DashBoard/DashBoard";
 import Profile from "../pages/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 const myCreatedRouter = createBrowserRouter([
     {
@@ -26,15 +27,15 @@ const myCreatedRouter = createBrowserRouter([
             },
             {
                 path: "/order",
-                element: <Order></Order>
+                element: <PrivateRoute><Order></Order></PrivateRoute>
             },
             {
                 path: "/dashboard",
-                element: <DashBoard></DashBoard>
+                element: <PrivateRoute><DashBoard></DashBoard></PrivateRoute>
             },
             {
                 path: "/profile",
-                element: <Profile></Profile>
+                element: <PrivateRoute><Profile></Profile></PrivateRoute>
             },
         ],
     },

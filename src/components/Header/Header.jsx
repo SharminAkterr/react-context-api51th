@@ -34,14 +34,18 @@ const Header = () => {
             isPending ? "pending" : isActive ? "active text-red-500 font-semibold underline" : ""}>
             Order
         </NavLink>
-        <NavLink to="/dashboard" className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active text-red-500 font-semibold underline" : ""}>
-            DashBoard
-        </NavLink>
-        <NavLink to="/profile" className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active text-red-500 font-semibold underline" : ""}>
-            Profile
-        </NavLink>
+        {
+            user && <>
+                <NavLink to="/dashboard" className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active text-red-500 font-semibold underline" : ""}>
+                    DashBoard
+                </NavLink>
+                <NavLink to="/profile" className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active text-red-500 font-semibold underline" : ""}>
+                    Profile
+                </NavLink>
+            </>
+        }
     </>
 
 
