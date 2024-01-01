@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
+
+    const { signUp } = useContext(AuthContext);
+    // console.log(signUp)
 
     const handleRegister = e => {
         e.preventDefault();
@@ -8,6 +13,17 @@ const Register = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(name, email, password);
+
+
+        // called from AuthProvider file AuthContext Api and useContext uses then added this function
+        signUp(email, password)
+            .then(result => {
+                console.log(result.user)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
     }
 
     return (
@@ -41,9 +57,6 @@ const Register = () => {
                                     </label>
                                     <input type="password"
                                         name="password" placeholder="password" className="input input-bordered" required />
-                                    <label className="label">
-                                        <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                    </label>
                                 </div>
                                 <div className="form-control mt-6">
                                     <button className="btn btn-primary">Register</button>

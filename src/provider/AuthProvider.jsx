@@ -1,19 +1,50 @@
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import PropTypes from 'prop-types';
-import { createContext } from "react";
-
+import { createContext, useEffect, useState } from "react";
+import auth from '../firebase/firebase.config';
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
 
-    const authValue = {
-        name: "mimi",
-        module: 51
+    const [user, setUser] = useState(null);
+
+
+    const signUp = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password)
     }
 
 
+    const login = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+            console.log("On state change Auth current value of the current users", currentUser);
+            setUser(currentUser);
+        });
+
+        // jate always spy na kore. connection ba onno page e gele jate disconnect hoy.
+
+        return () => {
+            unSubscribe();
+        }
+    }, [])
+
+    const logOut = () => {
+        return signOut(auth);
+    }
+
+    const authIfo = {
+        user,
+        signUp,
+        login,
+        logOut
+    };
+
     return (
-        <AuthContext.Provider value={authValue}>
+        <AuthContext.Provider value={authIfo}>
             {children}
         </AuthContext.Provider>
     );

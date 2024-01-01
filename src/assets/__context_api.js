@@ -4,5 +4,8 @@
 * 3. set value
 * 4. useContext
 *
+
+private route/ protected route / auth guard:
+ 1. 
 *
 *****/
