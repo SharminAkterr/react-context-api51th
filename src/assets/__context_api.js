@@ -32,8 +32,6 @@
 
 
 -------------------- Google Account log in set --------------------
-* 1. auth provider e function set and component er outside googleProvider set
-* 2. form er button e onclick set and call there auth provider function
-* 3. 
-*
+* 1. auth provider e function set and component er outside googleProvider set.
+* 2. form er button e onclick set and call there auth provider function.
 ***/
